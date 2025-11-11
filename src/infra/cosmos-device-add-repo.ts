@@ -42,12 +42,18 @@ export class CosmosDeviceAddRepository {
     };
   }
 
-  private fromDTO(resource: any): Device {
-    return {
-      ...resource,
-      createdAt: new Date(resource.createdAt),
-    };
-  }
+private fromDTO(resource: any): Device {
+  const { id, name, category, condition, available, createdAt } = resource;
+  return {
+    id,
+    name,
+    category,
+    condition,
+    available,
+    createdAt: new Date(createdAt),
+  };
+}
+
 
   async save(device: Device): Promise<Device> {
     const dto = this.toDTO(device);
