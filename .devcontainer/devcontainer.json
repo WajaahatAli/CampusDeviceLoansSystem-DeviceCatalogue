@@ -1,0 +1,22 @@
+{
+    "name":"Device Catalogue service",
+    "image": "ghcer.io/tpdavison/devop-labs:latest",
+    "features": {},
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-azuretools.vscode-azurefunctions",
+                "ms-azuretools.vscode-azureresourcegroups",
+                "ms-azuretools.vs-azuretools",
+                "ms-vscode-remote.remote-containers"
+            ]
+        }
+    },
+    "forwardPorts": [ 8080],
+    "postCreateCommand": "npm install"
+
+
+
+
+
+}
