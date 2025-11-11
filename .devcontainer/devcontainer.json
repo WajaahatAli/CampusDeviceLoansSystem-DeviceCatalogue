@@ -1,5 +1,5 @@
 {
-  "name": "DeviceCatalogue",
+  "name": "Device Catalouge",
   "image": "ghcr.io/tpdavison/devops-labs:latest",
   "features": {},
   "customizations": {
