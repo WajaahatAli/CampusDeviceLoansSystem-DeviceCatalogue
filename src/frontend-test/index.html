@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Device Catalogue</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      margin: 0;
+      background: #f5f7fa;
+      color: #333;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+    }
+
+    button {
+      display: block;
+      margin: 20px auto;
+      padding: 10px 20px;
+      background: #0078d7;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #005fa3;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    th, td {
+      padding: 12px 16px;
+      text-align: left;
+      border-bottom: 1px solid #eee;
+    }
+
+    th {
+      background: #0078d7;
+      color: white;
+    }
+
+    tr:hover {
+      background: #f1faff;
+    }
+
+    .badge {
+      padding: 4px 10px;
+      border-radius: 12px;
+      color: white;
+      font-size: 13px;
+    }
+
+    .available {
+      background: #27ae60;
+    }
+
+    .unavailable {
+      background: #e74c3c;
+    }
+
+    .loading, .error {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 18px;
+    }
+
+    .error {
+      color: #c0392b;
+    }
+  </style>
+</head>
+<body>
+  <h1>Campus Device Catalogue</h1>
+  <button id="fetchBtn">Fetch Devices</button>
+
+  <div id="status" class="loading"></div>
+
+  <table id="deviceTable" style="display: none;">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Device Name</th>
+        <th>Category</th>
+        <th>Condition</th>
+        <th>Availability</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <script>
+    const API_URL = "https://campus-devices-cr07-func.azurewebsites.net/api/products";
+    const fetchBtn = document.getElementById("fetchBtn");
+    const statusDiv = document.getElementById("status");
+    const table = document.getElementById("deviceTable");
+    const tbody = table.querySelector("tbody");
+
+    fetchBtn.addEventListener("click", async () => {
+      statusDiv.textContent = "Loading devices...";
+      statusDiv.className = "loading";
+      table.style.display = "none";
+
+      try {
+        const response = await fetch(API_URL);
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const data = await response.json();
+
+        tbody.innerHTML = ""; // clear table
+
+        data.data.forEach(device => {
+          const row = document.createElement("tr");
+          row.innerHTML = `
+            <td>${device.id}</td>
+            <td>${device.name}</td>
+            <td>${device.category}</td>
+            <td>${device.condition}</td>
+            <td>
+              <span class="badge ${device.available ? 'available' : 'unavailable'}">
+                ${device.available ? 'Available' : 'Unavailable'}
+              </span>
+            </td>
+          `;
+          tbody.appendChild(row);
+        });
+
+        statusDiv.textContent = "";
+        table.style.display = "table";
+      } catch (err) {
+        statusDiv.textContent = "Error fetching devices: " + err.message;
+        statusDiv.className = "error";
+        table.style.display = "none";
+      }
+    });
+  </script>
+</body>
+</html>
