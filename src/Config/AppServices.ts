@@ -47,11 +47,12 @@ export function getProductRepo(): CosmosDeviceAddRepository {
     deviceRepoInstance = new CosmosDeviceAddRepository(options);
 
     console.log(
-      `CosmosDeviceAddRepository initialized:
-      - Endpoint: ${endpoint}
-      - Database: ${databaseId}
-      - Container: ${containerId}`
-    );
+  `CosmosDeviceAddRepository initialized:
+  - Endpoint: ${endpoint}
+  - Database: ${databaseId}
+  - Container: ${containerId}`
+);
+
   }
 
   return deviceRepoInstance;
