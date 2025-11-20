@@ -2,17 +2,17 @@
 
 export const testProducts = [
   {
-    id: 'p1',
-    name: 'Lenovo ThinkPad X1 Carbon',
-    category: 'Laptops',
+    id: '01',
+    name: 'Samsung Galaxy S21',
+    category: 'Phone',
     condition: 'good',
     available: true,
     createdAt: new Date(),
   },
   {
-    id: 'p2',
-    name: 'Dell Latitude 7420',
-    category: 'Laptops',
+    id: '02',
+    name: 'Iphone12Pro Max',
+    category: 'Mobile Phone',
     condition: 'fair',
     available: true,
     createdAt: new Date(),
